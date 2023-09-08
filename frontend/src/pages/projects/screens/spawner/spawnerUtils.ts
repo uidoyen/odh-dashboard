@@ -223,13 +223,6 @@ export const getDefaultVersionForImageStream = (
   return sortedVersions[0];
 };
 
-/******************* Deployment Size utils *******************/
-export const getSizeDescription = (size: NotebookSize): string =>
-  `Limits: ${size.resources.limits?.cpu || '??'} CPU, ` +
-  `${size.resources.limits?.memory || '??'} Memory ` +
-  `Requests: ${size.resources.requests?.cpu || '??'} CPU, ` +
-  `${size.resources.requests?.memory || '??'} Memory`;
-
 /******************* Storage utils *******************/
 export const getVolumesByStorageData = (
   storageData: StorageData,

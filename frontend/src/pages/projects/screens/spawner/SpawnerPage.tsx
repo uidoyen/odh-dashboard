@@ -33,7 +33,6 @@ import { SpawnerPageSectionID } from './types';
 import { ScrollableSelectorID, SpawnerPageSectionTitles } from './const';
 import SpawnerFooter from './SpawnerFooter';
 import ImageSelectorField from './imageSelector/ImageSelectorField';
-import ContainerSizeSelector from './deploymentSize/ContainerSizeSelector';
 import { useNotebookSize } from './useNotebookSize';
 import StorageField from './storage/StorageField';
 import EnvironmentVariables from './environmentVariables/EnvironmentVariables';
@@ -42,7 +41,7 @@ import { getRootVolumeName, useMergeDefaultPVCName } from './spawnerUtils';
 import { useNotebookEnvVariables } from './environmentVariables/useNotebookEnvVariables';
 import DataConnectionField from './dataConnection/DataConnectionField';
 import { useNotebookDataConnection } from './dataConnection/useNotebookDataConnection';
-
+import ContainerSizeSelectorField from '~/concepts/k8s/containerSize/ContainerSizeSelectorField';
 type SpawnerPageProps = {
   existingNotebook?: NotebookKind;
 };
@@ -93,7 +92,7 @@ const SpawnerPage: React.FC<SpawnerPageProps> = ({ existingNotebook }) => {
   const { size: notebookSize } = useNotebookDeploymentSize(existingNotebook);
   React.useEffect(() => {
     if (notebookSize) {
-      setSelectedSize(notebookSize.name);
+      setSelectedSize(notebookSize);
     }
   }, [notebookSize, setSelectedSize]);
 
@@ -164,10 +163,11 @@ const SpawnerPage: React.FC<SpawnerPageProps> = ({ existingNotebook }) => {
               id={SpawnerPageSectionID.DEPLOYMENT_SIZE}
               aria-label={SpawnerPageSectionTitles[SpawnerPageSectionID.DEPLOYMENT_SIZE]}
             >
-              <ContainerSizeSelector
-                sizes={sizes}
-                setValue={setSelectedSize}
-                value={selectedSize}
+              <ContainerSizeSelectorField
+                customSizes={sizes}
+                onSelection={setSelectedSize}
+                selection={selectedSize}
+                label="Container sizes"
               />
               <GPUSelectField
                 value={selectedGpu}

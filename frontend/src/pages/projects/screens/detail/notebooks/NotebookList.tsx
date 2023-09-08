@@ -25,6 +25,7 @@ const NotebookList: React.FC = () => {
     }
     return () => clearInterval(interval);
   }, [notebookStates, refreshNotebooks]);
+  console.log('🚀 ~ file: NotebookList.tsx:28 ~ notebookStates:', notebookStates);
 
   return (
     <DetailsSection

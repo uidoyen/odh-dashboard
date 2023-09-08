@@ -34,7 +34,9 @@ const NotebookTableRow: React.FC<NotebookTableRowProps> = ({
   const { currentProject } = React.useContext(ProjectDetailsContext);
   const navigate = useNavigate();
   const [isExpanded, setExpanded] = React.useState(false);
+  console.log(obj.notebook);
   const { size: notebookSize, error: sizeError } = useNotebookDeploymentSize(obj.notebook);
+  console.log('🚀 ~ file: NotebookTableRow.tsx:38 ~ notebookSize:', notebookSize);
   const [notebookImage, loaded] = useNotebookImage(obj.notebook);
 
   return (
@@ -70,14 +72,7 @@ const NotebookTableRow: React.FC<NotebookTableRowProps> = ({
             spaceItems={{ default: 'spaceItemsXs' }}
             alignItems={{ default: 'alignItemsCenter' }}
           >
-            <FlexItem>{notebookSize?.name ?? 'Unknown'}</FlexItem>
-            {sizeError && (
-              <Tooltip removeFindDomNode content={sizeError}>
-                <Icon aria-label="error icon" role="button" status="danger" tabIndex={0}>
-                  <ExclamationCircleIcon />
-                </Icon>
-              </Tooltip>
-            )}
+            <FlexItem>{notebookSize?.name ?? 'Custom'}</FlexItem>
           </Flex>
         </Td>
         <Td dataLabel="Status">

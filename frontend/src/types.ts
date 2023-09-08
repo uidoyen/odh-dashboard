@@ -142,6 +142,10 @@ export type NotebookSize = {
   resources: ContainerResources;
   notUserDefined?: boolean;
 };
+export type GenericContainerSize = {
+  name: string;
+  resources: ContainerResources;
+};
 
 export type TolerationSettings = {
   enabled: boolean;

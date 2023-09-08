@@ -4,6 +4,7 @@ import { DashboardConfig, NotebookSize } from '~/types';
 import useNotification from '~/utilities/useNotification';
 import { useDeepCompareMemoize } from '~/utilities/useDeepCompareMemoize';
 import { DEFAULT_NOTEBOOK_SIZES } from './const';
+import { GenericContainerSize } from '~/types';
 
 export const getNotebookSizes = (config: DashboardConfig): NotebookSize[] => {
   let sizes = config.spec.notebookSizes || [];
@@ -14,9 +15,9 @@ export const getNotebookSizes = (config: DashboardConfig): NotebookSize[] => {
 };
 
 export const useNotebookSize = (): {
-  selectedSize: NotebookSize;
-  setSelectedSize: (size: string) => void;
-  sizes: NotebookSize[];
+  selectedSize: GenericContainerSize;
+  setSelectedSize: (size: GenericContainerSize) => void;
+  sizes: GenericContainerSize[];
 } => {
   const { dashboardConfig } = useAppContext();
   const notification = useNotification();
@@ -25,15 +26,8 @@ export const useNotebookSize = (): {
   const [selectedSize, setSelectedSize] = React.useState<NotebookSize>(sizes[0]);
 
   const setSelectedSizeSafe = React.useCallback(
-    (name: string) => {
-      let foundSize = sizes.find((size) => size.name === name);
-      if (!foundSize) {
-        foundSize = sizes[0];
-        notification.warning(
-          'The size you select is no longer available, we have set the size to the default one.',
-        );
-      }
-      setSelectedSize(foundSize);
+    (containerSize: GenericContainerSize) => {
+      setSelectedSize(containerSize);
     },
     [notification, sizes],
   );

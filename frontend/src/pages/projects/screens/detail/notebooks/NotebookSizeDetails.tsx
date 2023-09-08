@@ -21,13 +21,13 @@ const NotebookSizeDetails: React.FC<NotebookSizeDetailsProps> = ({ notebookSize 
       <DescriptionListGroup>
         <DescriptionListTerm>Limits</DescriptionListTerm>
         <DescriptionListDescription>
-          {limits?.cpu ?? 'Unknown'} CPU, {limits?.memory ?? 'Unknown'} Memory
+          {limits?.cpu ?? 'Custom'} CPU, {limits?.memory ?? 'Custom'} Memory
         </DescriptionListDescription>
       </DescriptionListGroup>
       <DescriptionListGroup>
         <DescriptionListTerm>Requests</DescriptionListTerm>
         <DescriptionListDescription>
-          {requests?.cpu ?? 'Unknown'} CPU, {requests?.memory ?? 'Unknown'} Memory
+          {requests?.cpu ?? 'Custom'} CPU, {requests?.memory ?? 'Custom'} Memory
         </DescriptionListDescription>
       </DescriptionListGroup>
     </DescriptionList>
