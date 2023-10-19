@@ -33,8 +33,6 @@ const ServingRuntimeSizeSection: React.FC<ServingRuntimeSizeSectionProps> = ({
       <ContainerSizeSelectorField
         selection={data.modelSize}
         onSelection={(size: GenericContainerSize) => {
-          console.log(size);
-
           setData('modelSize', size);
         }}
         customSizes={sizes}

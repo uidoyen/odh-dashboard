@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { useAppContext } from '~/app/AppContext';
 import { DashboardConfig, NotebookSize } from '~/types';
-import useNotification from '~/utilities/useNotification';
+// import useNotification from '~/utilities/useNotification';
 import { useDeepCompareMemoize } from '~/utilities/useDeepCompareMemoize';
-import { DEFAULT_NOTEBOOK_SIZES } from './const';
 import { GenericContainerSize } from '~/types';
+import { DEFAULT_NOTEBOOK_SIZES } from './const';
 
 export const getNotebookSizes = (config: DashboardConfig): NotebookSize[] => {
   let sizes = config.spec.notebookSizes || [];
@@ -20,7 +20,7 @@ export const useNotebookSize = (): {
   sizes: GenericContainerSize[];
 } => {
   const { dashboardConfig } = useAppContext();
-  const notification = useNotification();
+  // const notification = useNotification();
   const sizes = useDeepCompareMemoize(getNotebookSizes(dashboardConfig));
 
   const [selectedSize, setSelectedSize] = React.useState<NotebookSize>(sizes[0]);
@@ -29,7 +29,7 @@ export const useNotebookSize = (): {
     (containerSize: GenericContainerSize) => {
       setSelectedSize(containerSize);
     },
-    [notification, sizes],
+    [setSelectedSize],
   );
 
   return { selectedSize, setSelectedSize: setSelectedSizeSafe, sizes };

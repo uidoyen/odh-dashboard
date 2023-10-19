@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { ActionsColumn, ExpandableRowContent, Tbody, Td, Tr } from '@patternfly/react-table';
-import { Flex, FlexItem, Icon, Spinner, Text, TextVariants, Tooltip } from '@patternfly/react-core';
+import { Flex, FlexItem, Spinner, Text, TextVariants } from '@patternfly/react-core';
 import { useNavigate } from 'react-router-dom';
-import { ExclamationCircleIcon } from '@patternfly/react-icons';
 import { NotebookState } from '~/pages/projects/notebook/types';
 import { getNotebookDescription, getNotebookDisplayName } from '~/pages/projects/utils';
 import NotebookRouteLink from '~/pages/projects/notebook/NotebookRouteLink';
@@ -34,9 +33,7 @@ const NotebookTableRow: React.FC<NotebookTableRowProps> = ({
   const { currentProject } = React.useContext(ProjectDetailsContext);
   const navigate = useNavigate();
   const [isExpanded, setExpanded] = React.useState(false);
-  console.log(obj.notebook);
-  const { size: notebookSize, error: sizeError } = useNotebookDeploymentSize(obj.notebook);
-  console.log('🚀 ~ file: NotebookTableRow.tsx:38 ~ notebookSize:', notebookSize);
+  const { size: notebookSize } = useNotebookDeploymentSize(obj.notebook);
   const [notebookImage, loaded] = useNotebookImage(obj.notebook);
 
   return (

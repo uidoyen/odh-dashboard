@@ -1,6 +1,6 @@
 import * as React from 'react';
 import compareVersions from 'compare-versions';
-import { NotebookSize, Volume, VolumeMount } from '~/types';
+import { Volume, VolumeMount } from '~/types';
 import { BuildKind, ImageStreamKind, ImageStreamSpecTagType, NotebookKind } from '~/k8sTypes';
 import {
   ConfigMapCategory,

@@ -11,6 +11,7 @@ import {
   StackItem,
 } from '@patternfly/react-core';
 import ApplicationsPage from '~/pages/ApplicationsPage';
+import ContainerSizeSelectorField from '~/concepts/k8s/containerSize/ContainerSizeSelectorField';
 import { ImageStreamAndVersion } from '~/types';
 import GenericSidebar from '~/components/GenericSidebar';
 import NameDescriptionField from '~/concepts/k8s/NameDescriptionField';
@@ -41,7 +42,6 @@ import { getRootVolumeName, useMergeDefaultPVCName } from './spawnerUtils';
 import { useNotebookEnvVariables } from './environmentVariables/useNotebookEnvVariables';
 import DataConnectionField from './dataConnection/DataConnectionField';
 import { useNotebookDataConnection } from './dataConnection/useNotebookDataConnection';
-import ContainerSizeSelectorField from '~/concepts/k8s/containerSize/ContainerSizeSelectorField';
 type SpawnerPageProps = {
   existingNotebook?: NotebookKind;
 };
