@@ -8,9 +8,10 @@ const TOAST_NOTIFICATION_TIMEOUT = 8 * 1000;
 
 interface ToastNotificationProps {
   notification: AppNotification;
+  key: number | undefined;
 }
 
-const ToastNotification: React.FC<ToastNotificationProps> = ({ notification }) => {
+const ToastNotification: React.FC<ToastNotificationProps> = ({ notification, key }) => {
   const dispatch = useAppDispatch();
   const [timedOut, setTimedOut] = React.useState(false);
   const [mouseOver, setMouseOver] = React.useState(false);
@@ -43,6 +44,7 @@ const ToastNotification: React.FC<ToastNotificationProps> = ({ notification }) =
       }
       onMouseEnter={() => setMouseOver(true)}
       onMouseLeave={() => setMouseOver(false)}
+      key={key}
     >
       {notification.message}
     </Alert>

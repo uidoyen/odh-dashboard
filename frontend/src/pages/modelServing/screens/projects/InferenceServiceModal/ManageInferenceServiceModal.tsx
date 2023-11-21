@@ -17,6 +17,7 @@ import {
   updateInferenceService,
 } from '~/api';
 import { InferenceServiceKind, ProjectKind, SecretKind, ServingRuntimeKind } from '~/k8sTypes';
+import { InferenceServiceNotificationsContext } from '~/app/InferenceServiceNotificationsContext';
 import { DataConnection } from '~/pages/projects/types';
 import DashboardModalFooter from '~/concepts/dashboard/DashboardModalFooter';
 import { InferenceServiceStorageType } from '~/pages/modelServing/screens/types';
@@ -50,6 +51,7 @@ const ManageInferenceServiceModal: React.FC<ManageInferenceServiceModalProps> = 
   const [createData, setCreateData, resetData] = useCreateInferenceServiceObject(editInfo);
   const [actionInProgress, setActionInProgress] = React.useState(false);
   const [error, setError] = React.useState<Error | undefined>();
+  const { getModelDeploymentInfo } = React.useContext(InferenceServiceNotificationsContext);
 
   React.useEffect(() => {
     if (projectContext) {
@@ -136,7 +138,8 @@ const ManageInferenceServiceModal: React.FC<ManageInferenceServiceModalProps> = 
         .catch(setErrorModal);
     } else {
       createModel()
-        .then(() => {
+        .then((inferenceService) => {
+          getModelDeploymentInfo(inferenceService, inferenceService.metadata.name);
           setActionInProgress(false);
           onBeforeClose(true);
         })
