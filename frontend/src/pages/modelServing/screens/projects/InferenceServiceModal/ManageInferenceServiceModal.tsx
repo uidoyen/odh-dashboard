@@ -17,6 +17,9 @@ import ProjectSection from './ProjectSection';
 import InferenceServiceFrameworkSection from './InferenceServiceFrameworkSection';
 import InferenceServiceServingRuntimeSection from './InferenceServiceServingRuntimeSection';
 import InferenceServiceNameSection from './InferenceServiceNameSection';
+import { NotificationsContext } from '~/app/NotificationsContext';
+import { listInferenceService } from '~/api';
+import { LABEL_SELECTOR_DASHBOARD_RESOURCE } from '~/const';
 
 type ManageInferenceServiceModalProps = {
   isOpen: boolean;
@@ -41,6 +44,7 @@ const ManageInferenceServiceModal: React.FC<ManageInferenceServiceModalProps> = 
   const [createData, setCreateData, resetData] = useCreateInferenceServiceObject(editInfo);
   const [actionInProgress, setActionInProgress] = React.useState(false);
   const [error, setError] = React.useState<Error | undefined>();
+  const { registerListeners } = React.useContext(NotificationsContext);
 
   React.useEffect(() => {
     if (projectContext) {
@@ -55,6 +59,19 @@ const ManageInferenceServiceModal: React.FC<ManageInferenceServiceModalProps> = 
       return createData.storage.dataConnection !== '';
     }
     return isAWSValid(createData.storage.awsData, [AWS_KEYS.AWS_S3_BUCKET]);
+  };
+
+  const fetchInferenceServices = (): Promise<void | InferenceServiceKind[]> => {
+    return listInferenceService(
+      projectContext?.currentProject.metadata.name,
+      LABEL_SELECTOR_DASHBOARD_RESOURCE,
+    )
+      .then((inferenceServices: InferenceServiceKind[]) => {
+        return inferenceServices;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   const isDisabled =
@@ -76,6 +93,7 @@ const ManageInferenceServiceModal: React.FC<ManageInferenceServiceModalProps> = 
 
   const onSuccess = () => {
     onBeforeClose(true);
+    registerListeners(fetchInferenceServices());
   };
 
   const setErrorModal = (error: Error) => {
