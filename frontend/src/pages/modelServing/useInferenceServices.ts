@@ -13,7 +13,9 @@ const useInferenceServices = (namespace?: string): FetchState<InferenceServiceKi
       return Promise.reject(new NotReadyError('Model serving is not enabled'));
     }
 
-    return getInferenceServiceContext(namespace, LABEL_SELECTOR_DASHBOARD_RESOURCE);
+    return getInferenceServiceContext(namespace, LABEL_SELECTOR_DASHBOARD_RESOURCE).catch((e) => {
+      throw new Error('No Inference Services found.');
+    });
   }, [namespace, modelServingEnabled]);
 
   return useFetchState<InferenceServiceKind[]>(getServingInferences, [], {

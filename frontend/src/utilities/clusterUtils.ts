@@ -6,6 +6,7 @@ const consolePrefix = 'console-openshift-console';
 export const getOpenShiftConsoleServerURL = (apiURL?: string): string | null => {
   const { hostname, protocol, port } = window.location;
 
+  console.log('🚀 ~ file: clusterUtils.ts:10 ~ getOpenShiftConsoleServerURL ~ DEV_MODE:', DEV_MODE);
   if (DEV_MODE && apiURL) {
     let apiURLWithoutPrefix = apiURL.slice('https://api.'.length);
     if (apiURLWithoutPrefix.includes(':')) {

@@ -18,7 +18,7 @@ export enum CompletionStatusEnum {
 }
 
 export const getLaunchStatus = (
-  quickStartId: string,
+  quickStartId?: string,
   qsContext?: QuickStartContextValues,
 ): LaunchStatusEnum => {
   if (!quickStartId || !qsContext || !qsContext.allQuickStartStates) {
