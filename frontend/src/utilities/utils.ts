@@ -68,7 +68,7 @@ export const getLabelColorForDocType = (
       return 'grey';
   }
 };
-export const combineCategoryAnnotations = (doc: OdhDocument, app: OdhApplication): void => {
+export const combineCategoryAnnotations = (doc: OdhDocument, app: OdhApplication): OdhDocument => {
   const docCategories = (doc.metadata.annotations?.[CATEGORY_ANNOTATION] ?? '')
     .split(',')
     .map((c) => c.trim());
@@ -83,9 +83,15 @@ export const combineCategoryAnnotations = (doc: OdhDocument, app: OdhApplication
     return acc;
   }, docCategories);
 
-  doc.metadata.annotations = {
-    ...(doc.metadata.annotations || {}),
-    [CATEGORY_ANNOTATION]: combined.join(','),
+  return {
+    ...doc,
+    metadata: {
+      ...doc.metadata,
+      annotations: {
+        ...(doc.metadata.annotations || {}),
+        [CATEGORY_ANNOTATION]: combined.join(','),
+      },
+    },
   };
 };
 

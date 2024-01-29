@@ -48,7 +48,8 @@ export const updateJSONFileKey = (
 ): Cypress.Chainable<{
   [key: string]: unknown;
 }> =>
-  readJSON(path).then((data) => {
+  readJSON(path).then((originalData) => {
+    const data = { ...originalData };
     if (typeof value === 'undefined') {
       delete data[key];
     } else {

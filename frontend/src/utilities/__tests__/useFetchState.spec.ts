@@ -108,7 +108,7 @@ describe('useFetchState', () => {
     expect(result[1][1]).toBe(true);
 
     // rerender but with a promise that doens't resolve
-    renderResult.rerender(() => new Promise(() => null), [11], {
+    renderResult.rerender(() => Promise.resolve([] as number[]), [11], {
       initialPromisePurity: true,
     });
 

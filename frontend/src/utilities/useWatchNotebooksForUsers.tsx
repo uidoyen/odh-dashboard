@@ -54,10 +54,13 @@ const useWatchNotebooksForUsers = (
             setLoadError(undefined);
           }
 
-          const newNotebooks = successes.reduce((notebookMap, { value }) => {
-            notebookMap[value.name] = value.data;
-            return notebookMap;
-          }, {} as UsernameMap<NotebookRunningState>);
+          const newNotebooks = successes.reduce(
+            (notebookMap, { value }) => ({
+              ...notebookMap,
+              [value.name]: value.data,
+            }),
+            {} as UsernameMap<NotebookRunningState>,
+          );
           setNotebooks((prevState) => ({ ...prevState, ...newNotebooks }));
           setLoaded(true);
         })

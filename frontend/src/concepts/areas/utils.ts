@@ -14,7 +14,10 @@ const getFlags = (dashboardConfigSpec: DashboardConfigKind['spec']): FlagState =
     ...Object.keys(flags).reduce<FlagState>((flagState, key) => {
       const value = flags[key as FeatureFlag];
       if (isFeatureFlag(key, value)) {
-        flagState[key] = key.startsWith('disable') ? !value : value;
+        return {
+          ...flagState,
+          [key]: key.startsWith('disable') ? !value : value,
+        };
       }
       return flagState;
     }, {}),

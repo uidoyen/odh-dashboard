@@ -124,10 +124,13 @@ export const createDSPipelineResourceSpec = (
               port: databaseRecord?.[DATABASE_CONNECTION_KEYS.PORT],
               username: databaseRecord?.[DATABASE_CONNECTION_KEYS.USERNAME],
             },
-          }
-        : undefined,
-    };
-  }
+            pipelineDBName: databaseRecord[DATABASE_CONNECTION_KEYS.DATABASE],
+            port: databaseRecord[DATABASE_CONNECTION_KEYS.PORT],
+            username: databaseRecord[DATABASE_CONNECTION_KEYS.USERNAME],
+          },
+        }
+      : undefined,
+  };
 };
 
 export const configureDSPipelineResourceSpec = (

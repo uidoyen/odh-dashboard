@@ -51,8 +51,9 @@ export const assembleSecret = (
 };
 
 export const assembleISSecretBody = (
-  data: Record<string, string>,
+  originalData: Record<string, string>,
 ): [Record<string, string>, string] => {
+  const data = { ...originalData };
   const secretKey = `secret-${genRandomChars()}`;
   delete data.path;
   data['type'] = 's3';

@@ -54,15 +54,16 @@ const EnableModal: React.FC<EnableModalProps> = ({ selectedApp, shown, onClose }
   React.useEffect(() => {
     if (validationInProgress && validationStatus === EnableApplicationStatus.SUCCESS) {
       setValidationInProgress(false);
-      selectedApp.spec.isEnabled = true;
-      selectedApp.spec.shownOnEnabledPage = true;
+      const updatedSelectedApp = { ...selectedApp };
+      updatedSelectedApp.spec.isEnabled = true;
+      updatedSelectedApp.spec.shownOnEnabledPage = true;
       onClose();
     }
     if (validationInProgress && validationStatus === EnableApplicationStatus.FAILED) {
       setValidationInProgress(false);
       setPostError(validationErrorMessage);
     }
-  }, [onClose, selectedApp.spec, validationErrorMessage, validationInProgress, validationStatus]);
+  }, [onClose, selectedApp, validationErrorMessage, validationInProgress, validationStatus]);
 
   React.useEffect(() => {
     if (shown) {

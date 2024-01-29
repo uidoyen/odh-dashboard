@@ -114,25 +114,25 @@ export const assembleServingRuntime = (
     updatedServingRuntime.spec.containers[0]?.resources,
   );
 
-  updatedServingRuntime.spec.containers = servingRuntime.spec.containers.map(
-    (container): ServingContainer => {
-      const volumeMounts = container.volumeMounts || [];
-      if (!volumeMounts.find((volumeMount) => volumeMount.mountPath === '/dev/shm')) {
-        volumeMounts.push(getshmVolumeMount());
-      }
+  updatedServingRuntime.spec.containers = servingRuntime.spec.containers.map(function mapContainer(
+    container,
+  ): ServingContainer {
+    const volumeMounts = container.volumeMounts || [];
+    if (!volumeMounts.find((volumeMount) => volumeMount.mountPath === '/dev/shm')) {
+      volumeMounts.push(getshmVolumeMount());
+    }
 
-      return {
-        ...container,
-        resources: isModelMesh ? resources : resourceSettings,
-        affinity,
-        volumeMounts,
-      };
-    },
-  );
+    return {
+      ...container,
+      resources: isModelMesh ? resources : resourceSettings,
+      affinity,
+      volumeMounts,
+    };
+  });
 
-  if (isModelMesh) {
-    servingRuntime.spec.tolerations = tolerations;
-  }
+  updatedServingRuntime.spec.tolerations = isModelMesh
+    ? tolerations
+    : servingRuntime.spec.tolerations;
 
   // Volume mount for /dev/shm
   const volumes = updatedServingRuntime.spec.volumes || [];
